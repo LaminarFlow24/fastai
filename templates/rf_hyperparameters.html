@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head><title>Random Forest Hyperparameters</title></head>
+<body>
+    <h1>Set Random Forest Hyperparameters</h1>
+    <form action="/rf_hyperparameters" method="post">
+        <label for="n_estimators">Number of Estimators:</label>
+        <input type="number" name="n_estimators" id="n_estimators" value="100"><br>
+
+        <label for="max_depth">Max Depth (leave blank for default):</label>
+        <input type="text" name="max_depth" id="max_depth"><br>
+
+        <label for="min_samples_split">Min Samples Split:</label>
+        <input type="number" name="min_samples_split" id="min_samples_split" value="2"><br>
+
+        <label for="max_leaf_nodes">Max Leaf Nodes (leave blank for default):</label>
+        <input type="text" name="max_leaf_nodes" id="max_leaf_nodes"><br>
+
+        <label for="min_samples_leaf">Min Samples Leaf:</label>
+        <input type="number" name="min_samples_leaf" id="min_samples_leaf" value="1"><br>
+
+        <label for="max_features">Max Features (leave blank for default):</label>
+        <input type="text" name="max_features" id="max_features"><br>
+
+        <button type="submit">Submit and Train Model</button>
+    </form>
+    <a href="/">Back to Home</a>
+</body>
+</html>

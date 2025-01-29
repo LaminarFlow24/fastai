@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head><title>Options</title></head>
+<body>
+    <h1>Choose an Option</h1>
+    <form action="/display_graphs" method="post">
+        <input type="hidden" name="filepath" value="{{ filepath }}">
+        <button type="submit">Display Graphs</button>
+    </form>
+    <form action="/train_model" method="post">
+        <input type="hidden" name="filepath" value="{{ filepath }}">
+        <button type="submit">Train Linear Regression Model</button>
+    </form>
+    <form action="/rf_hyperparameters" method="get">
+        <button type="submit">Train Random Forest Model (Set Hyperparameters)</button>
+    </form>
+    
+</body>
+</html>

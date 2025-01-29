@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head><title>Model Training</title></head>
+<body>
+    <h1>Model Training Completed</h1>
+    <p>Mean Absolute Error (MAE): {{ mae }}</p>
+    <p>Mean of y_test: {{ mean_y }}</p>
+    <p>Percentage of MAE relative to mean of y_test: {{ mae_percentage }}%</p>
+    <h2>Download Files</h2>
+    <ul>
+        <li><a href="/download?file={{ model_path }}" download>Download Trained Model (.pkl)</a></li>
+        <li><a href="/download?file={{ scaler_path }}" download>Download Scaler (.pkl)</a></li>
+        <li><a href="/download?file={{ encoders_path }}" download>Download Encoders (.pkl)</a></li>
+    </ul>
+    <h2>Make a Prediction</h2>
+    <form action="/predict" method="post">
+        {{ input_fields|safe }}
+        <button type="submit">Predict</button>
+    </form>
+    <a href="/">Back to Home</a>
+</body>
+</html>
