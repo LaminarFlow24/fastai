@@ -1,0 +1,55 @@
+<!-- templates/train.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Train CNN Model</title>
+</head>
+<body>
+  <h1>Train Your CNN Model</h1>
+  <form action="{{ url_for('train') }}" method="POST" enctype="multipart/form-data">
+    <h2>Hyperparameters</h2>
+    <label>Learning Rate:</label>
+    <input type="text" name="learning_rate" value="0.001"><br><br>
+    
+    <label>Batch Size:</label>
+    <input type="text" name="batch_size" value="32"><br><br>
+    
+    <label>Epochs:</label>
+    <input type="text" name="epochs" value="10"><br><br>
+    
+    <label>Kernel Size:</label>
+    <input type="text" name="kernel_size" value="3"><br><br>
+    
+    <label>Stride:</label>
+    <input type="text" name="stride" value="1"><br><br>
+    
+    <label>Padding:</label>
+    <select name="padding">
+      <option value="same">same</option>
+      <option value="valid">valid</option>
+    </select><br><br>
+    
+    <label>Number of Convolutional Layers:</label>
+    <input type="number" name="num_conv_layers" value="1" min="1"><br><br>
+    
+    <label>Convolutional Filters (comma separated):</label>
+    <input type="text" name="conv_filters" value="32"><br><br>
+    
+    <label>Dense Layers Neurons (comma separated, optional):</label>
+    <input type="text" name="dense_neurons" placeholder="e.g. 128,64"><br><br>
+    
+    <h2>Upload Images</h2>
+    <label>Class 1 Images:</label>
+    <input type="file" name="class1_images" multiple><br><br>
+    
+    <label>Class 2 Images:</label>
+    <input type="file" name="class2_images" multiple><br><br>
+    
+    <input type="submit" value="Train Model">
+  </form>
+  
+  <br>
+  <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>

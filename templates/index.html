@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CNN Trainer & Predictor</title>
+</head>
+<body>
+  <h1>Welcome to the CNN Trainer & Predictor</h1>
+  <ul>
+    <li><a href="{{ url_for('set_classes') }}">Set Classes</a></li>
+    <li><a href="{{ url_for('upload_images') }}">Upload Images</a></li>
+    <li><a href="{{ url_for('start_training') }}">Train Model</a></li>
+    <li><a href="{{ url_for('predict') }}">Predict Image</a></li>
+  </ul>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul style="color: green;">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</body>
+</html>

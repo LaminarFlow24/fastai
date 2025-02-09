@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Start Training</title>
+</head>
+<body>
+    <h1>Configure Training</h1>
+    <form action="{{ url_for('start_training') }}" method="POST">
+        <label>Learning Rate:</label>
+        <input type="text" name="learning_rate" value="0.001"><br><br>
+        
+        <label>Batch Size:</label>
+        <input type="text" name="batch_size" value="32"><br><br>
+        
+        <label>Epochs:</label>
+        <input type="text" name="epochs" value="10"><br><br>
+        
+        <label>Kernel Size:</label>
+        <input type="text" name="kernel_size" value="3"><br><br>
+        
+        <label>Stride:</label>
+        <input type="text" name="stride" value="1"><br><br>
+        
+        <label>Padding:</label>
+        <select name="padding">
+            <option value="same">same</option>
+            <option value="valid">valid</option>
+        </select><br><br>
+        
+        <label>Number of Convolution Layers:</label>
+        <input type="number" name="num_conv_layers" value="1" min="1"><br><br>
+        
+        <label>Convolution Filters (comma separated):</label>
+        <input type="text" name="conv_filters" value="32"><br><br>
+        
+        <label>Dense Neurons (optional, comma separated):</label>
+        <input type="text" name="dense_neurons" placeholder="e.g., 128,64"><br><br>
+        
+        <input type="submit" value="Start Training">
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>

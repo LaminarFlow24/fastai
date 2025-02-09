@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Define Classes</title>
+</head>
+<body>
+  <h1>Define Classes</h1>
+  <form action="{{ url_for('define_classes') }}" method="POST">
+    <label>Enter comma-separated class names:</label><br>
+    <input type="text" name="class_names" placeholder="e.g. cat, dog, rabbit"><br><br>
+    <input type="submit" value="Submit">
+  </form>
+  <br>
+  <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>

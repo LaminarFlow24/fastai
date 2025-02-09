@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Set Classes</title>
+</head>
+<body>
+  <h1>Configure Classes</h1>
+  <form action="{{ url_for('set_classes') }}" method="POST">
+      <label>Enter class names (comma-separated):</label>
+      <input type="text" name="class_names" placeholder="e.g., cat,dog,bird">
+      <button type="submit">Set Classes</button>
+  </form>
+  <br>
+  <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>

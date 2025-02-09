@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Training Progress</title>
+</head>
+<body>
+    <h1>Training Progress</h1>
+    <div id="progress"></div>
+    <!-- Include Socket.IO client library from a reliable CDN -->
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script type="text/javascript">
+        var socket = io();
+        
+        socket.on('connect', function() {
+            console.log("Connected to server via Socket.IO");
+        });
+        
+        socket.on('training_started', function(data) {
+            var progressDiv = document.getElementById('progress');
+            progressDiv.innerHTML += '<p><strong>' + data.message + '</strong></p>';
+        });
+        
+        socket.on('epoch_update', function(data) {
+            var progressDiv = document.getElementById('progress');
+            progressDiv.innerHTML += '<p>Epoch ' + data.epoch +
+                ': Train Acc = ' + parseFloat(data.train_accuracy).toFixed(4) +
+                ', Val Acc = ' + parseFloat(data.val_accuracy).toFixed(4) + '</p>';
+        });
+        
+        socket.on('training_complete', function(data) {
+            var progressDiv = document.getElementById('progress');
+            progressDiv.innerHTML += '<p><strong>' + data.message + '</strong></p>';
+        });
+    </script>
+    <br>
+    <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>

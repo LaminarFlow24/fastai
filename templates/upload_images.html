@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Upload Images for Each Class</title>
+</head>
+<body>
+  <h1>Upload Images for Each Class</h1>
+  <form id="uploadForm">
+    {% if class_names and class_names|length > 0 %}
+      {% for cls in class_names %}
+        <h3>Upload images for class: {{ cls|capitalize }}</h3>
+        <!-- Create a separate file input for each class -->
+        <input type="file" id="imageInput_{{ cls }}" multiple>
+        <br><br>
+      {% endfor %}
+    {% else %}
+      <p>No classes configured. Please set up your classes first.</p>
+    {% endif %}
+    <button type="submit">Upload All Images</button>
+  </form>
+  
+  <div id="uploadStatus"></div>
+  
+  <script>
+    // Function to upload a single file for the given class.
+    async function uploadFile(file, imgClass) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('img_class', imgClass);
+      
+      try {
+        const response = await fetch('{{ url_for("upload_image") }}', {
+          method: 'POST',
+          body: formData
+        });
+        return await response.text();
+      } catch (error) {
+        console.error("Upload error:", error);
+        return "Error uploading image";
+      }
+    }
+    
+    // Function to upload an array of files with a concurrency limit.
+    async function uploadFilesForClass(files, imgClass, concurrencyLimit) {
+      let activeUploads = [];
+      for (const file of files) {
+        const uploadPromise = uploadFile(file, imgClass)
+          .then(result => {
+            // Only display a message if the result is not successful.
+            if (result.trim() !== "File uploaded successfully") {
+              document.getElementById('uploadStatus').innerHTML +=
+                '<p>' + file.name + ' (' + imgClass + '): ' + result + '</p>';
+            }
+            return result;
+          });
+        activeUploads.push(uploadPromise);
+        if (activeUploads.length >= concurrencyLimit) {
+          await Promise.race(activeUploads);
+          activeUploads = activeUploads.filter(p => p);
+        }
+      }
+      await Promise.all(activeUploads);
+    }
+    
+    // When the form is submitted, loop over each class's file input and upload the files.
+    document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const statusDiv = document.getElementById('uploadStatus');
+      statusDiv.innerHTML = '';
+      
+      {% for cls in class_names %}
+        const files_{{ cls }} = document.getElementById('imageInput_{{ cls }}').files;
+        if (files_{{ cls }}.length > 0) {
+          console.log("Uploading files for class: {{ cls }}");
+          await uploadFilesForClass(Array.from(files_{{ cls }}), "{{ cls }}", 5); // concurrency limit: 5 per class
+        } else {
+          statusDiv.innerHTML += '<p>No files selected for class {{ cls|capitalize }}</p>';
+        }
+      {% endfor %}
+      
+      statusDiv.innerHTML += '<p>All files processed.</p>';
+    });
+  </script>
+  
+  <br>
+  <a href="{{ url_for('index') }}">Home</a>
+</body>
+</html>
